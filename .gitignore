@@ -1,0 +1,18 @@
+# Fichiers générés par .NET
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# Configuration locale et secrets
+appsettings.Local.json
+appsettings.Development.json
+.env
+.env.*
+secrets.json
