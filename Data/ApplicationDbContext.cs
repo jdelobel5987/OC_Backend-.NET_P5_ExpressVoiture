@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExpressVoiture.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+    public class ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options) 
+        : IdentityDbContext(options)
     {
         public DbSet<Vehicle> Vehicles => Set<Vehicle>();
         public DbSet<Brand> Brands => Set<Brand>();

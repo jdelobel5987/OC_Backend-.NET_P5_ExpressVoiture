@@ -1,6 +1,8 @@
-﻿namespace ExpressVoiture.Models.Entities
+﻿using ExpressVoiture.Interfaces;
+
+namespace ExpressVoiture.Models.Entities
 {
-    public class Purchase
+    public class Purchase : IEntity
     {
         public int Id { get; set; }
         public decimal Price { get; set; }

@@ -1,4 +1,6 @@
 using ExpressVoiture.Data;
+using ExpressVoiture.Data.Repositories;
+using ExpressVoiture.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// Repository pattern
+builder.Services.AddScoped(
+    typeof(IRepository<>),
+    typeof(Repository<>)
+);
 
 var app = builder.Build();
 

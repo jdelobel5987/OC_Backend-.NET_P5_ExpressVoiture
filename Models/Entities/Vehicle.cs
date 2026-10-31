@@ -1,6 +1,8 @@
-﻿namespace ExpressVoiture.Models.Entities
+﻿using ExpressVoiture.Interfaces;
+
+namespace ExpressVoiture.Models.Entities
 {
-    public class Vehicle
+    public class Vehicle : IEntity
     {
         public int Id { get; set; }
         public string? Vin { get; set; }

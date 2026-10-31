@@ -1,6 +1,8 @@
-﻿namespace ExpressVoiture.Models.Entities
+﻿using ExpressVoiture.Interfaces;
+
+namespace ExpressVoiture.Models.Entities
 {
-    public class RepairType
+    public class RepairType : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
