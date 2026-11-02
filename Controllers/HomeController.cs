@@ -1,14 +1,18 @@
 using System.Diagnostics;
+using ExpressVoiture.Interfaces;
 using ExpressVoiture.Models;
+using ExpressVoiture.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoiture.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(
+        IVehicleListingService vehicleListingService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var inventory = await vehicleListingService.GetAvailableAsync();
+            return View(inventory);
         }
 
         public IActionResult Privacy()

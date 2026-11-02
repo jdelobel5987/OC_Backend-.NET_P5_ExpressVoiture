@@ -1,8 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using ExpressVoiture.Models.ViewModels
+@{
+	ViewData["Title"] = "Voiture Express";
 }
+@model IEnumerable<VehicleListingItemViewModel>
+
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1 class="display-4">Inventaire disponible</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Marque</th>
+				<th>Modèle</th>
+				<th>Version</th>
+				<th>Année</th>
+				<th>Prix</th>
+				<th>Date de disponibilité</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.BrandName</td>
+					<td>@item.ModelName</td>
+					<td>@item.Version</td>
+					<td>@item.Year</td>
+					<td>@item.AskingPrice</td>
+					<td>@item.AvailabilityDate</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+
+
 </div>

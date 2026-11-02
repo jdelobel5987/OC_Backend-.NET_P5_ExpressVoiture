@@ -1,6 +1,7 @@
 using ExpressVoiture.Data;
 using ExpressVoiture.Data.Repositories;
 using ExpressVoiture.Interfaces;
+using ExpressVoiture.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,10 @@ builder.Services.AddScoped(
     typeof(IRepository<>),
     typeof(Repository<>)
 );
+
+// Services
+builder.Services.AddScoped<IVehicleListingService, VehicleListingService>();
+builder.Services.AddScoped<IVehicleListingRepository, VehicleListingRepository>();
 
 var app = builder.Build();
 
