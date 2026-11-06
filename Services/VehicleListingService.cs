@@ -9,18 +9,18 @@ namespace ExpressVoiture.Services
     {
         public async Task<IEnumerable<VehicleListingItemViewModel>> GetAvailableAsync()
         {
-            var listings = await repository.GetAvailableWithDetailsAsync();
+            var summaries = await repository.GetAvailableVehicleSummariesAsync();
 
-            return listings
-                .Select(l => new VehicleListingItemViewModel
+            return summaries
+                .Select(dto => new VehicleListingItemViewModel
                 {
-                    ListingId = l.Id,
-                    AskingPrice = l.AskingPrice,
-                    AvailabilityDate = l.AvailabilityDate,
-                    Year = l.Vehicle.Year,
-                    Version = l.Vehicle.Version,
-                    ModelName = l.Vehicle.Model.Name,
-                    BrandName = l.Vehicle.Model.Brand.Name
+                    ListingId = dto.ListingId,
+                    AskingPrice = dto.AskingPrice,
+                    AvailabilityDate = dto.AvailabilityDate,
+                    Year = dto.Year,
+                    Version = dto.Version,
+                    ModelName = dto.ModelName,
+                    BrandName = dto.BrandName
                 })
                 .ToList();
         }
