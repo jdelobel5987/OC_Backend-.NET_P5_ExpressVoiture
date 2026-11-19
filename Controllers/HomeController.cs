@@ -15,6 +15,11 @@ namespace ExpressVoiture.Controllers
             return View(inventory);
         }
 
+        public IActionResult AddVehicle()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
