@@ -1,8 +1,8 @@
 ﻿@using ExpressVoiture.Models.ViewModels
 @{
-	ViewData["Title"] = "Voiture Express";
+	ViewData["Title"] = "Accueil";
 }
-@model IEnumerable<VehicleListingItemViewModel>
+@model IEnumerable<VehicleListingItemSummaryViewModel>
 
 
 <div class="text-center">
@@ -17,6 +17,7 @@
 				<th>Année</th>
 				<th>Prix</th>
 				<th>Date de disponibilité</th>
+				<th>Détails</th>
 			</tr>
 		</thead>
 
@@ -28,8 +29,16 @@
 					<td>@item.ModelName</td>
 					<td>@item.Version</td>
 					<td>@item.Year</td>
-					<td>@item.AskingPrice</td>
+					<td>@item.AskingPrice.ToString("C")</td>
 					<td>@item.AvailabilityDate</td>
+					<td>
+						<a asp-controller="VehicleListings"
+							asp-action="Details"
+							asp-route-id="@item.ListingId"
+							class="btn btn-primary">
+							Voir les détails
+						</a>
+					</td>
 				</tr>
 			}
 		</tbody>
