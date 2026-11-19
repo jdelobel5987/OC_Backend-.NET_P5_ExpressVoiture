@@ -25,7 +25,11 @@ builder.Services.AddScoped(
 
 // Services
 builder.Services.AddScoped<IVehicleListingService, VehicleListingService>();
+builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
+
+// Repositories
 builder.Services.AddScoped<IVehicleListingRepository, VehicleListingRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 var app = builder.Build();
 
@@ -47,6 +51,12 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
 
 app.MapControllerRoute(
     name: "default",
