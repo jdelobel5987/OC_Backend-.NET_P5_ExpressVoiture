@@ -1,6 +1,6 @@
 ﻿namespace ExpressVoiture.Models.ViewModels
 {
-    public class VehicleListingItemViewModel
+    public class VehicleListingItemSummaryViewModel
     {
         public int ListingId { get; set; }
         public decimal AskingPrice { get; set; }
