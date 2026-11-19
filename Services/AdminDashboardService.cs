@@ -16,6 +16,11 @@ public class AdminDashboardService(
                 ? vehicleId
                 : null;
 
+        var selectedVehicle =
+            selectedVehicleId.HasValue
+                ? await vehicleRepository.GetAdminDetailsByIdAsync(selectedVehicleId.Value)
+                : null;
+
         return new AdminDashboardViewModel
         {
             SelectedVehicleId = selectedVehicleId,
@@ -24,7 +29,18 @@ public class AdminDashboardService(
                     Id = v.Id,
                     DisplayName = $"{v.BrandName} {v.ModelName} - {v.Year}"
 
-                })]
+                })],
+            SelectedVehicle = selectedVehicle is null
+                ? null
+                : new AdminVehicleDetailsViewModel
+                {
+                    Id = selectedVehicle.Id,
+                    Vin = selectedVehicle.Vin,
+                    Year = selectedVehicle.Year,
+                    Version = selectedVehicle.Version,
+                    BrandName = selectedVehicle.BrandName,
+                    ModelName = selectedVehicle.ModelName
+                }
         };
     }
 }

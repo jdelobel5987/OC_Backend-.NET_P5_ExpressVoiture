@@ -2,14 +2,15 @@
 
 <h1>Panneau d'administration</h1>
 
-<form method="get" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+<form id="vehicle-selection-form" method="get" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
 
     <div class="mb-3">
         <label asp-for="SelectedVehicleId" class="form-label">
             Véhicule sélectionné
         </label>
 
-        <select asp-for="SelectedVehicleId" class="form-select">
+        <select asp-for="SelectedVehicleId" id="SelectedVehicleId" class="form-select">
+            
             <option value="">
                 -- Sélectionner un véhicule --
             </option>
@@ -23,15 +24,42 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        Afficher
-    </button>
+    <noscript>
+        <button type="submit" class="btn btn-primary mt-2">
+            Afficher
+        </button>
+    </noscript>
 </form>
 
-        @if (Model.SelectedVehicleId.HasValue)
+@if (Model.SelectedVehicle is not null)
 {
-    <p class="mt-3">
-        Véhicule sélectionné : 
-        <strong>@Model.SelectedVehicleId</strong>
-    </p>
+    <section class="mt-4">
+        <h2>Véhicule sélectionné</h2>
+
+        <dl>
+            <dt>Marque</dt>
+            <dd>@Model.SelectedVehicle.BrandName</dd>
+            
+            <dt>Modèle</dt>
+            <dd>@Model.SelectedVehicle.ModelName</dd>
+
+            <dt>Année</dt>
+            <dd>@Model.SelectedVehicle.Year</dd>
+
+            <dt>Version</dt>
+            <dd>@(Model.SelectedVehicle.Version ?? "Non renseignée")</dd>
+
+            <dt>VIN</dt>
+            <dd>@(Model.SelectedVehicle.Vin ?? "Non renseigné")</dd>
+        </dl>
+    </section>
+}
+
+@section Scripts {
+    <script>
+        const vehicleSelect = document.getElementById('SelectedVehicleId');
+        vehicleSelect.addEventListener('change', () => {
+            vehicleSelect.form.requestSubmit();
+        });
+    </script>
 }

@@ -10,9 +10,9 @@ namespace ExpressVoiture.Areas.Admin.Controllers
         IAdminDashboardService adminDashboardService) : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Index(int? vehicleId)
+        public async Task<IActionResult> Index(int? selectedVehicleId)
         {
-            var model = await adminDashboardService.GetDashboardAsync(vehicleId);
+            var model = await adminDashboardService.GetDashboardAsync(selectedVehicleId);
             return View(model);
         }
 

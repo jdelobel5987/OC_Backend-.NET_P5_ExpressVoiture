@@ -24,4 +24,21 @@ public class VehicleRepository(
             })
             .ToListAsync();
     }
+
+    public async Task<AdminVehicleDetailsDto?> GetAdminDetailsByIdAsync(int id)
+    {
+        return await _dbSet
+            .AsNoTracking()
+            .Where(vehicle => vehicle.Id == id)
+            .Select(vehicle => new AdminVehicleDetailsDto
+            {
+                Id = vehicle.Id,
+                Vin = vehicle.Vin,
+                Year = vehicle.Year,
+                Version = vehicle.Version,
+                BrandName = vehicle.Model.Brand.Name,
+                ModelName = vehicle.Model.Name
+            })
+            .FirstOrDefaultAsync();
+    }
 }

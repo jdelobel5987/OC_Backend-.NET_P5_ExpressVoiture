@@ -6,4 +6,6 @@ namespace ExpressVoiture.Interfaces;
 public interface IVehicleRepository : IRepository<Vehicle>
 {
     Task<IEnumerable<VehicleSelectorOptionDto>> GetSelectorOptionsAsync();
+
+    Task<AdminVehicleDetailsDto?> GetAdminDetailsByIdAsync(int id);
 }
