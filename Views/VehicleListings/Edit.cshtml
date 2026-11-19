@@ -1,0 +1,118 @@
+﻿@using ExpressVoiture.Models.ViewModels
+@model VehicleListingEditViewModel
+
+<h1>Modifier l'annonce</h1>
+
+<form asp-controller="VehicleListings"
+	  asp-action="Edit"
+	  asp-route-id="@Model.ListingId"
+	  method="post">
+  @Html.AntiForgeryToken()
+
+  <label asp-for="BrandName">Marque</label>
+  <input asp-for="BrandName" value="@Model.BrandName" />
+  
+  <label asp-for="ModelName">Modèle</label>
+  <input asp-for="ModelName" value="@Model.ModelName" />
+  
+  <label asp-for="Version">Finition</label>
+  <input asp-for="Version" value="@Model.Version" />
+  
+  <label asp-for="Year">Année</label>
+  <input asp-for="Year" type="range" min="1990" max="@DateTime.Now.Year" step="1" value="@Model.Year" />
+
+  <label asp-for="AskingPrice">Prix (€)</label>
+  <input asp-for="AskingPrice" type="number" step="0.01" value="@Model.AskingPrice" />
+
+  <label asp-for="AvailabilityDate">Disponibilité du véhicule</label>
+  <input asp-for="AvailabilityDate" type="date"value="@Model.AvailabilityDate" />
+
+  <fieldset class="mt-3" aria-describedby="repairs-help">
+    <legend>Réparations effectuées avant vente</legend>
+
+    <div id="repair-rows">
+      @for (var i = 0; i < Model.Repairs.Count; i++)
+      {
+        <div class="repair-row input-group mb-2">
+          <label class="visually-hidden" for="repair-@i">Type de réparation @(i + 1)</label>
+          <select id="repair-@i" name="Repairs" class="form-select" required>
+            <option value="">-- Sélectionner une réparation --</option>
+            @foreach (var repairType in Model.RepairTypeOptions)
+            {
+              if (repairType == Model.Repairs[i])
+              {
+                <option value="@repairType" selected>@repairType</option>
+              }
+              else
+              {
+                <option value="@repairType">@repairType</option>
+              }
+            }
+          </select>
+          <button type="button" class="btn btn-outline-danger remove-repair" aria-label="Supprimer cette réparation">
+            Supprimer
+          </button>
+        </div>
+      }
+    </div>
+
+    <button type="button" id="add-repair" class="btn btn-outline-secondary">
+      Ajouter une réparation
+    </button>
+
+    <template id="repair-row-template">
+      <div class="repair-row input-group mb-2">
+        <label class="visually-hidden" for="repair-new">Type de réparation</label>
+        <select name="Repairs" class="form-select" required>
+          <option value="">-- Sélectionner une réparation --</option>
+          @foreach (var repairType in Model.RepairTypeOptions)
+          {
+            <option value="@repairType">@repairType</option>
+          }
+        </select>
+        <button type="button" class="btn btn-outline-danger remove-repair" aria-label="Supprimer cette réparation">
+          Supprimer
+        </button>
+      </div>
+    </template>
+  
+  <a asp-controller="VehicleListings"
+	 asp-action="Details"
+	 asp-route-id="@Model.ListingId"
+	 class="btn btn-secondary">
+ Annuler
+ </a>
+
+ <button type="submit" class="btn btn-primary">
+	 Enregistrer les modifications
+ </button>
+
+  </form>
+
+@section Scripts {
+  <script>
+    (() => {
+      const rows = document.getElementById('repair-rows');
+      const template = document.getElementById('repair-row-template');
+      const addButton = document.getElementById('add-repair');
+      let nextRepairId = @Model.Repairs.Count;
+
+      addButton.addEventListener('click', () => {
+        const row = template.content.cloneNode(true);
+        const select = row.querySelector('select');
+        const label = row.querySelector('label');
+        const id = `repair-${nextRepairId++}`;
+
+        select.id = id;
+        label.htmlFor = id;
+        rows.appendChild(row);
+      });
+
+      rows.addEventListener('click', (event) => {
+        if (event.target.closest('.remove-repair')) {
+          event.target.closest('.repair-row').remove();
+        }
+      });
+    })();
+  </script>
+}

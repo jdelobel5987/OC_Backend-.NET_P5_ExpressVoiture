@@ -1,0 +1,24 @@
+﻿@using ExpressVoiture.Models.ViewModels
+@model VehicleListingItemDetailsViewModel
+
+<form asp-controller="VehicleListings"
+	  asp-action="Delete"
+	  asp-route-id="@Model.ListingId"
+	  method="post">
+  @Html.AntiForgeryToken()
+
+  <p>Confirmer la suppression de cette annonce ? (action définitive)</p>
+
+  <a asp-controller="VehicleListings"
+	 asp-action="Details"
+	 asp-route-id="@Model.ListingId"
+	   class="btn btn-secondary">
+	  Annuler
+  </a>
+  
+  <button type="submit"
+		  class="btn btn-danger">
+	  Confirmer
+  </button>
+
+</form>

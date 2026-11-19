@@ -1,0 +1,41 @@
+﻿@using ExpressVoiture.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model VehicleListingItemDetailsViewModel
+
+<h1>@Model.BrandName @Model.ModelName</h1>
+<p>Année : @Model.Year</p>
+<p>Prix : @Model.AskingPrice.ToString("C")</p>
+
+<p>Liste des réparations récentes : </p>
+@if(Model.Repairs is not null)
+{
+	<ul>
+		@foreach(var repair in Model.Repairs)
+		{
+			<li>@repair</li>
+		}
+	</ul>
+} else
+{
+	<p>Aucune réparation avant revente</p>
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+	<a asp-controller="VehicleListings"
+	asp-action="Edit"
+	asp-route-id="@Model.ListingId"
+	class="btn btn-warning">
+		Modifier
+	</a>
+
+	<a asp-controller="VehicleListings"
+	asp-action="Delete"
+	asp-route-id="@Model.ListingId"
+	class="btn btn-danger">
+		Supprimer
+	</a>
+}
