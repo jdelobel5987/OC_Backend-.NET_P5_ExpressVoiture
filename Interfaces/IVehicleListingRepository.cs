@@ -6,5 +6,7 @@ namespace ExpressVoiture.Interfaces
     public interface IVehicleListingRepository : IRepository<VehicleListing>
     {
         Task<IEnumerable<VehicleListingItemSummaryDto>> GetAvailableVehicleSummariesAsync();
+        Task<VehicleListingItemDetailsDto?> GetDetailsByIdAsync(int id);
+        Task<IEnumerable<string>> GetRepairTypeNamesAsync();
     }
 }
