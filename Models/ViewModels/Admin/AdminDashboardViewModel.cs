@@ -7,4 +7,5 @@ public class AdminDashboardViewModel
     public AdminVehicleDetailsViewModel? SelectedVehicle { get; init; }
     public AdminPurchaseBlockViewModel PurchaseBlock { get; init; } = new();
     public AdminRepairsBlockViewModel RepairsBlock { get; init; } = new();
+    public AdminVehicleListingBlockViewModel ListingBlock { get; init; } = new();
 }

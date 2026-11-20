@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@model AdminVehicleListingBlockViewModel
+
+<section class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">Annonce</h2>
+
+        @if (Model.Listing is null)
+        {
+            <p class="text-muted">
+                Aucune annonce associée au véhicule sélectionné.
+            </p>
+        }
+        else
+        {
+            <dl>
+                <dt>Date de disponibilité</dt>
+                <dd>@Model.Listing.AvailabilityDate.ToString("dd/MM/yyyy")</dd>
+
+                <dt>Prix demandé</dt>
+                <dd>@Model.Listing.AskingPrice.ToString("C", CultureInfo.GetCultureInfo("fr-FR"))</dd>
+
+                <dt>Date de vente</dt>
+                <dd>@(Model.Listing.SaleDate?.ToString("dd/MM/yyyy") ?? "Non vendu")</dd>
+
+                <dt>Prix de vente</dt>
+                <dd>@(Model.Listing.SalePrice?.ToString("C", CultureInfo.GetCultureInfo("fr-FR")) ?? "Non vendu")</dd>
+
+
+            </dl>
+        }
+    </div>
+</section>

@@ -1,5 +1,6 @@
 ﻿using ExpressVoiture.Interfaces;
 using ExpressVoiture.Models.DTOs;
+using ExpressVoiture.Models.DTOs.Admin;
 using ExpressVoiture.Models.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,23 @@ namespace ExpressVoiture.Data.Repositories
                 .OrderBy(repairType => repairType.Name)
                 .Select(repairType => repairType.Name)
                 .ToListAsync();
+        }
+
+        public async Task<AdminVehicleListingDto?> GetByVehicleIdAsync(int vehicleId)
+        {
+            return await _dbSet
+                .AsNoTracking()
+                .Where(listing => listing.VehicleId == vehicleId)
+                .Select(listing => new AdminVehicleListingDto
+                {
+                    Id = listing.Id,
+                    VehicleId = listing.VehicleId,
+                    AvailabilityDate = listing.AvailabilityDate,
+                    AskingPrice = listing.AskingPrice,
+                    SaleDate = listing.SaleDate,
+                    SalePrice = listing.SalePrice
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

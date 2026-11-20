@@ -6,7 +6,8 @@ namespace ExpressVoiture.Services;
 public class AdminDashboardService(
     IVehicleRepository vehicleRepository,
     IPurchaseRepository purchaseRepository,
-    IRepairRepository repairRepository)
+    IRepairRepository repairRepository,
+    IVehicleListingRepository vehicleListingRepository)
     : IAdminDashboardService
 {
     public async Task<AdminDashboardViewModel> GetDashboardAsync(int? vehicleId)
@@ -33,6 +34,11 @@ public class AdminDashboardService(
             selectedVehicleId.HasValue
                 ? await repairRepository.GetByVehicleIdAsync(selectedVehicleId.Value)
                 : [];
+
+        var selectedListing =
+            selectedVehicleId.HasValue
+                ? await vehicleListingRepository.GetByVehicleIdAsync(selectedVehicleId.Value)
+                : null;
 
         return new AdminDashboardViewModel
         {
@@ -85,6 +91,23 @@ public class AdminDashboardService(
                         Price = repair.Price
                     })
                 ]
+            },
+
+            ListingBlock = new AdminVehicleListingBlockViewModel
+            {
+                VehicleId = selectedVehicleId,
+
+                Listing = selectedListing is null
+                    ? null
+                    : new AdminVehicleListingViewModel
+                    {
+                        Id = selectedListing.Id,
+                        VehicleId = selectedListing.VehicleId,
+                        AvailabilityDate = selectedListing.AvailabilityDate,
+                        AskingPrice =  selectedListing.AskingPrice,
+                        SaleDate = selectedListing.SaleDate,
+                        SalePrice = selectedListing.SalePrice
+                    }
             }
         };
     }
