@@ -31,29 +31,9 @@
     </noscript>
 </form>
 
-@if (Model.SelectedVehicle is not null)
-{
-    <section class="mt-4">
-        <h2>Véhicule sélectionné</h2>
 
-        <dl>
-            <dt>Marque</dt>
-            <dd>@Model.SelectedVehicle.BrandName</dd>
-            
-            <dt>Modèle</dt>
-            <dd>@Model.SelectedVehicle.ModelName</dd>
+<partial name="_VehicleDetails" model="Model.SelectedVehicle" />
 
-            <dt>Année</dt>
-            <dd>@Model.SelectedVehicle.Year</dd>
-
-            <dt>Version</dt>
-            <dd>@(Model.SelectedVehicle.Version ?? "Non renseignée")</dd>
-
-            <dt>VIN</dt>
-            <dd>@(Model.SelectedVehicle.Vin ?? "Non renseigné")</dd>
-        </dl>
-    </section>
-}
 
 @section Scripts {
     <script>
