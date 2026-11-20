@@ -1,0 +1,55 @@
+﻿@model BrandIndexViewModel
+
+<h1>Gestion des marques</h1>
+
+
+@if (Model.EditModel is not null)
+{
+    <partial name="_EditForm" model="Model.EditModel" />
+}
+else
+{
+    <partial name="_CreateForm" model="Model.CreateModel" />
+}
+
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">
+        @error
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var brand in Model.Brands)
+        {
+            <tr>
+                <td>@brand.Name</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Brands" asp-action="Index" asp-route-editId="@brand.Id"
+                       class="btn btn-sm btn-secondary">
+                        Modifier
+                    </a>
+
+                    <form asp-area="Admin" asp-controller="Brands" asp-action="Delete" method="post" class="d-inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" name="Id" value="@brand.Id" />
+
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Supprimer
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
