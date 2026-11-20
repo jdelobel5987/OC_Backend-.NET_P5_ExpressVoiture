@@ -31,8 +31,18 @@
     </noscript>
 </form>
 
-
+        @if (Model.SelectedVehicle is null)
+{
+    <partial name="_DashboardEmpty" />
+}
+else
+{
 <partial name="_VehicleDetails" model="Model.SelectedVehicle" />
+<partial name="_Purchase" model="Model.PurchaseBlock" />
+<partial name="_Repairs" model="Model.RepairsBlock" />    
+}
+
+
 
 
 @section Scripts {

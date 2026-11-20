@@ -1,0 +1,25 @@
+﻿@using System.Globalization
+@model AdminPurchaseBlockViewModel
+
+<section class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">Achat du véhicule</h2>
+
+        @if (Model.Purchase is null)
+        {
+            <p class="text-muted">
+                Aucun achat associé au véhicule sélectionné.
+            </p>
+        }
+        else
+        {
+            <dl>
+                <dt>Prix d'achat</dt>
+                <dd>@Model.Purchase.Price.ToString("C", CultureInfo.GetCultureInfo("fr-FR"))</dd>
+
+                <dt>Date d'achat</dt>
+                <dd>@Model.Purchase.Date.ToString("dd/MM/yyyy")</dd>
+            </dl>
+        }
+    </div>
+</section>

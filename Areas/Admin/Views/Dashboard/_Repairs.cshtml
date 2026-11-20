@@ -1,0 +1,29 @@
+﻿@using System.Globalization
+@model AdminRepairsBlockViewModel
+
+<section class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">
+            Réparations
+        </h2>
+
+        @if (Model.Repairs.Count == 0)
+        {
+            <p class="text-muted">
+                Aucune réparation associée au véhicule sélectionné.
+            </p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var repair in Model.Repairs)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@repair.RepairTypeName</span>
+                        <span>@repair.Price.ToString("C", CultureInfo.GetCultureInfo("fr-FR"))</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</section>

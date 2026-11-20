@@ -30,6 +30,8 @@ builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 // Repositories
 builder.Services.AddScoped<IVehicleListingRepository, VehicleListingRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 
 var app = builder.Build();
 

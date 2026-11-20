@@ -1,33 +1,25 @@
-﻿@model AdminVehicleDetailsViewModel?
+﻿@model AdminVehicleDetailsViewModel
 
 <section class="card mt-4">
     <div class="card-body">
         <h2 class="card-title">Véhicule sélectionné</h2>
-
-        @if (Model is null)
-        {
-            <p class="text-muted">
-                Sélectionnez un véhicule pour afficher ses informations.
-            </p>
-        }
-        else
-        {
-            <dl>
-                <dt>Marque</dt>
-                <dd>@Model.BrandName</dd>
+        
+        <dl>
+            <dt>Marque</dt>
+            <dd>@Model.BrandName</dd>
             
-                <dt>Modèle</dt>
-                <dd>@Model.ModelName</dd>
+            <dt>Modèle</dt>
+            <dd>@Model.ModelName</dd>
 
-                <dt>Année</dt>
-                <dd>@Model.Year</dd>
+            <dt>Année</dt>
+            <dd>@Model.Year</dd>
 
-                <dt>Version</dt>
-                <dd>@(Model.Version ?? "Non renseignée")</dd>
+            <dt>Version</dt>
+            <dd>@(Model.Version ?? "Non renseignée")</dd>
 
-                <dt>VIN</dt>
-                <dd>@(Model.Vin ?? "Non renseigné")</dd>
-            </dl>
-        }
+            <dt>VIN</dt>
+            <dd>@(Model.Vin ?? "Non renseigné")</dd>
+        </dl>
+        
     </div>
 </section>
