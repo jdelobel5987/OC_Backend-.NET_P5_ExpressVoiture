@@ -38,18 +38,98 @@ else
                         Modifier
                     </a>
 
-                    <form asp-area="Admin" asp-controller="Brands" asp-action="Delete" method="post" class="d-inline">
+                    <button type="button"
+                            class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteBrandModal"
+                            data-brand-id="@brand.Id"
+                            data-brand-name="@brand.Name">
+                    
+                        Supprimer
+                    </button>
 
-                        @Html.AntiForgeryToken()
-
-                        <input type="hidden" name="Id" value="@brand.Id" />
-
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Supprimer
-                        </button>
-                    </form>
+                    
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div class="modal fade"
+     id="deleteBrandModal"
+     tabindex="-1"
+     aria-labelledby="deleteBrandModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5"
+                    id="deleteBrandModalLabel">
+                    Confirmer la suppression
+                </h2>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer">
+                
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Voulez-vous vraiment supprimer la marque <strong id="deleteBrandName"></strong> ?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Annuler        
+                </button>
+
+                <form asp-area="Admin" 
+                      asp-controller="Brands" 
+                      asp-action="Delete" 
+                      method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" id="deleteBrandId" name="id" />
+
+                        <button type="submit" 
+                                class="btn btn-danger">
+                            Confirmer la suppression
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const deleteBrandModal =
+            document.getElementById('deleteBrandModal');
+
+        deleteBrandModal.addEventListener(
+            'show.bs.modal',
+            event => {
+                const button = event.relatedTarget;
+
+                const brandId =
+                    button.getAttribute('data-brand-id');
+
+                const brandName =
+                    button.getAttribute('data-brand-name');
+
+                document.getElementById('deleteBrandId')
+                    .value = brandId;
+
+                document.getElementById('deleteBrandName')
+                    .textContent = brandName;
+            });
+    </script>
+}
