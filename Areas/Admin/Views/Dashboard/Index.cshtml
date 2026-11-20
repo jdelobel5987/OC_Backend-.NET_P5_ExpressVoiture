@@ -2,6 +2,37 @@
 
 <h1>Panneau d'administration</h1>
 
+<section class="card mb-4">
+    <div class="card-body">
+        <h2 class="card-title">Actions rapides</h2>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-area="Admin"
+               asp-controller="Brands"
+               asp-action="Index"
+               class="btn btn-outline-primary">
+                Gestion des marques
+            </a>
+            
+            <a asp-area="Admin"
+               asp-controller="Models"
+               asp-action="Index"
+               class="btn btn-outline-primary">
+                Gestion des modèles
+            </a>
+
+            <a asp-area="Admin"
+               asp-controller="RepairTypes"
+               asp-action="Index"
+               class="btn btn-outline-primary">
+                Gestion des types de réparation
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
 <form id="vehicle-selection-form" method="get" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
 
     <div class="mb-3">
