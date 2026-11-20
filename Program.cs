@@ -23,6 +23,8 @@ builder.Services.AddScoped(
     typeof(Repository<>)
 );
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 // Services
 builder.Services.AddScoped<IVehicleListingService, VehicleListingService>();
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
