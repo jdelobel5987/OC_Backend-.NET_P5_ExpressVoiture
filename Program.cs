@@ -29,6 +29,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IVehicleListingService, VehicleListingService>();
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 builder.Services.AddScoped<IBrandAdminService, BrandAdminService>();
+builder.Services.AddScoped<IModelAdminService, ModelAdminService>();
 
 // Repositories
 builder.Services.AddScoped<IVehicleListingRepository, VehicleListingRepository>();
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IModelRepository, ModelRepository>();
 
 var app = builder.Build();
 

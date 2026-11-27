@@ -1,0 +1,137 @@
+﻿@model ModelIndexViewModel
+
+<h1>Gestion des modèles</h1>
+
+
+@if (Model.EditModel is not null)
+{
+    <partial name="_EditForm" model="Model.EditModel" />
+}
+else
+{
+    <partial name="_CreateForm" model="Model.CreateModel" />
+}
+
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">
+        @error
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Marque</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var modelv in Model.Models) //modelv stands for modelvehicle, used to avoid keyword conflict @model = data used by the view
+        {
+            <tr>
+                <td>@modelv.Name</td>
+                <td>@modelv.BrandName</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Models" asp-action="Index" asp-route-editId="@modelv.Id"
+                       class="btn btn-sm btn-secondary">
+                        Modifier
+                    </a>
+
+                    <button type="button"
+                            class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModelModal"
+                            data-model-id="@modelv.Id"
+                            data-model-name="@modelv.Name">
+                    
+                        Supprimer
+                    </button>
+
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade"
+     id="deleteModelModal"
+     tabindex="-1"
+     aria-labelledby="deleteModelModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5"
+                    id="deleteModelModalLabel">
+                    Confirmer la suppression
+                </h2>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer">
+                
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Voulez-vous vraiment supprimer le modèle <strong id="deleteModelName"></strong> ?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Annuler        
+                </button>
+
+                <form asp-area="Admin" 
+                      asp-controller="Models" 
+                      asp-action="Delete" 
+                      method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" id="deleteModelId" name="id" />
+
+                        <button type="submit" 
+                                class="btn btn-danger">
+                            Confirmer la suppression
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const deleteModelModal =
+            document.getElementById('deleteModelModal');
+
+        deleteModelModal.addEventListener(
+            'show.bs.modal',
+            event => {
+                const button = event.relatedTarget;
+
+                const modelId =
+                    button.getAttribute('data-model-id');
+
+                const modelName =
+                    button.getAttribute('data-model-name');
+
+                document.getElementById('deleteModelId')
+                    .value = modelId;
+
+                document.getElementById('deleteModelName')
+                    .textContent = modelName;
+            });
+    </script>
+}

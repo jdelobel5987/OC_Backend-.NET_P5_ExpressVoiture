@@ -1,0 +1,47 @@
+﻿@model ModelFormViewModel
+
+<section class="card mb-4">
+    <div class="card-body">
+        <h2>Ajouter un modèle</h2>
+
+        <form asp-area="Admin"
+              asp-controller="Models"
+              asp-action="Create"
+              method="post">
+        
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BrandId" class="form-label">Marque</label>
+                <select asp-for="BrandId" class="form-select">
+                    <option value="">
+                        -- Sélectionner une marque --
+                    </option>
+
+                    @foreach (var brand in Model.BrandOptions)
+                            {
+                                if (Model.BrandId == brand.Id)
+                                {
+                                    <option value="@brand.Id" selected>@brand.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@brand.Id">@brand.Name</option>
+                                }
+                            }
+                </select>
+
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+
+        </form>
+    </div>
+</section>
